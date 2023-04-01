@@ -1,0 +1,10 @@
+apt-get update -y && apt-get upgrade -y
+
+sysctl net.ipv4.ip_forward=1
+iptables -t nat -A PREROUTING -p tcp --dport 22 -j DNAT --to-destination IRAN_IP
+iptables -t nat -A PREROUTING -j DNAT --to-destination EU_VPS_IP
+iptables -t nat -A POSTROUTING -j MASQUERADE
+
+
+
+wget -N --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh && chmod +x bbr.sh && bash bbr.sh
